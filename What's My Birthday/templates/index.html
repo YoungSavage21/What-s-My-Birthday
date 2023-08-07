@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/2f388422d2.js" crossorigin="anonymous"></script>
+        <title>Birthdays</title>
+    </head>
+    <body>
+        <div class="header">
+            <h1>What's My Birthday?</h1>
+            <p>Made by Gilang and CS50</p>
+        </div>
+        <div class="container">
+            <div class="section">
+
+                <h2>Add a Birthday</h2>
+                <!-- TODO: Create a form for users to submit a name, a month, and a day -->
+                <form action="/" method="post">
+                    <input type="text" name="name" placeholder="Name" autocomplete="off">
+                    <input type="number" name="month" placeholder="Month" autocomplete="off" min = 1 max = 12>
+                    <input type="number" name="day" placeholder="Day" autocomplete="off" min = 1 max = 31>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+
+            <div class="section">
+
+                <h2>All Birthdays</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Birthday</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- TODO: Loop through the database entries to display them in this table -->
+                        {% for row in birthdays %}
+                            <tr>
+                                <td>{{ row["name"] }}</td>
+                                <td>{{ row["month"] }} {{ row["day"] }}</td>
+                                <td>
+                                    <form action="/remove" method="post">
+                                        <input type="hidden" name="id" value="{{ row['id'] }}">
+                                        <button type="submit"><i class="fa-solid fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
